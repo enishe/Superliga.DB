@@ -4,11 +4,9 @@ SDB është një sistem i menaxhimit të bazës së të dhënave i projektuar po
 🚀 Karakteristikat Kryesore
 Menaxhimi i Statistikave Historike: Regjistrimi i saktë i çdo ndeshjeje, goli dhe kartoni për të shmangur vështirësitë në gjurmimin e historikut të ligës.
 
-Automatizimi i Suspendimeve: Mundësia që administratorët të kontrollojnë tabelën e kartonëve për të identifikuar lojtarët që kanë plotësuar numrin e kartonëve të verdhë.
-
 Gjurmimi i Transferimeve: Regjistrimi i lëvizjeve të lojtarëve midis klubeve, përfshirë datën dhe vlerën e transferimit.
 
-Historiku i Stadiumit: Menaxhimi i informacioneve mbi kapacitetin dhe ndeshjet e luajtura në çdo stadium për të planifikuar mirëmbajtjen e fushës.
+Historiku i Stadiumit: Menaxhimi i informacioneve mbi kapacitetin dhe ndeshjet e luajtura në çdo stadium.
 
 Integriteti i të Dhënave: Zbatimi i relacioneve që sigurojnë që çdo ngjarje (gol ose karton) të jetë e lidhur saktë me ndeshjen, lojtarin dhe sezonin përkatës.
 
@@ -40,7 +38,6 @@ Në kuadër të këtij projekti janë parashikuar skenarë përdorimi për anali
 
 Gjurmimi i Golashënuesve: Sistemi gjeneron listën e "Këpucës së Artë" duke numëruar golat e lidhur me çdo lojtar në një sezon specifik.
 
-Regjistrimi i Rezultatit: Zyrtarët e FFK-së mund të përditësojnë tabelën e ndeshjeve me rezultatin final dhe golashënuesit menjëherë pas përfundimit të lojës.
 
 Relacionet Komplekse: Përdorimi i lidhjeve One-to-Many dhe Many-to-Many për të lidhur klubet që përballen në një ndeshje (Home vs Away).
 
