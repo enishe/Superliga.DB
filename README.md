@@ -1,54 +1,56 @@
-⚽ Superliga Database (SDB)
-SDB është një sistem i menaxhimit të bazës së të dhënave i projektuar posaçërisht për administrimin e ligës elitare të futbollit në Kosovë. Projekti demonstron zbatimin e parimeve të avancuara të SQL në PostgreSQL, duke zgjidhur problemin e të dhënave të shpërndara dhe duke krijuar një burim qendror informacioni për Federatën, klubet dhe mediat sportive.
+# ⚽ Superliga Database (SDB)
 
-🚀 Karakteristikat Kryesore
-Menaxhimi i Statistikave Historike: Regjistrimi i saktë i çdo ndeshjeje, goli dhe kartoni për të shmangur vështirësitë në gjurmimin e historikut të ligës.
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-Expert-orange?style=for-the-badge)
+![Database Design](https://img.shields.io/badge/DB_Design-Relational-blue?style=for-the-badge)
 
-Gjurmimi i Transferimeve: Regjistrimi i lëvizjeve të lojtarëve midis klubeve, përfshirë datën dhe vlerën e transferimit.
+**Punoi:** Enis Hetemi  
+**Institucioni:** Universiteti i Mitrovicës "Isa Boletini" (UMIB)  
+**Projekti:** Administrimi i Ligës Elitare të Futbollit në Kosovë
 
-Historiku i Stadiumit: Menaxhimi i informacioneve mbi kapacitetin dhe ndeshjet e luajtura në çdo stadium.
+---
 
-Integriteti i të Dhënave: Zbatimi i relacioneve që sigurojnë që çdo ngjarje (gol ose karton) të jetë e lidhur saktë me ndeshjen, lojtarin dhe sezonin përkatës.
+## 📝 Përshkrimi i Projektit
+Superliga Database (SDB) është një sistem i menaxhimit të bazës së të dhënave i projektuar posaçërisht për administrimin e ligës elitare të futbollit në Kosovë. Ky projekt zgjidh problemin e të dhënave të shpërndara duke krijuar një burim qendror informacioni për Federatën, klubet dhe mediat sportive përmes një strukture të avancuar SQL në PostgreSQL.
 
-📊 Struktura e Databazës
-Databaza është ndërtuar në PostgreSQL dhe përbëhet nga 10 entitete kryesore që sigurojnë mbulim të plotë të kampionatit:
+---
 
-KLUBET – Emri, qyteti, viti i themelimit dhe presidenti.
+## 🚀 Karakteristikat Kryesore (Features)
+* **Menaxhimi i Statistikave:** Regjistrimi i saktë i çdo ndeshjeje, goli dhe kartoni për të shmangur vështirësitë në gjurmimin historik.
+* **Gjurmimi i Transferimeve:** Regjistrimi i plotë i lëvizjeve të lojtarëve (shitës/blerës) përfshirë datën dhe vlerën e transferimit.
+* **Integriteti i të Dhënave:** Zbatimi i "Foreign Keys" që sigurojnë që çdo ngjarje (gol ose karton) të jetë e lidhur saktë me ndeshjen dhe lojtarin.
+* **Analitika Operative:** Gjenerimi i listave për "Këpucën e Artë" dhe renditjen e skuadrave përmes Queries komplekse.
+* **Historiku i Stadiumit:** Menaxhimi i kapaciteteve dhe qyteteve ku zhvillohen aktivitetet sportive.
 
-LOJTARËT – Emri, mbiemri, data e lindjes, pozicioni dhe numri i fanellës.
+---
 
-TRAJNERËT – Emri, kualifikimi (Pro Licence) dhe ekipi aktual.
+## 📊 Struktura e Databazës (Sipas ER Diagramit)
+Databaza është e normalizuar dhe përbëhet nga 10 entitete kryesore:
 
-STADIUMET – Emri, kapaciteti dhe qyteti.
-
-NDESHJET – Data, ora, java e kampionatit dhe rezultati final.
-
-GOLAT – Minuta e shënimit dhe lloji (aksion, penallti, autogol).
-
-KARTONËT – Ngjyra, minuta dhe arsyeja e ndëshkimit.
-
-SEZONET – Viti kampionat dhe statusi (aktiv/mbyllur).
-
-TRANSFERIMET – Data, vlera dhe klubet e përfshira (shitës/blerës).
-
-REFERËT – Emri, mbiemri dhe grada (FIFA ose kombëtare).
-
-🔍 Queries & Use Cases
-Në kuadër të këtij projekti janë parashikuar skenarë përdorimi për analiza operative:
-
-Gjurmimi i Golashënuesve: Sistemi gjeneron listën e "Këpucës së Artë" duke numëruar golat e lidhur me çdo lojtar në një sezon specifik.
+* **KLUBET & LOJTARËT:** Lidhja One-to-Many (Klubi ka shumë lojtarë).
+* **NDESHJET:** Pika qendrore ku lidhen Stadiumet, Sezonet dhe Referët.
+* **NGJARJET (Golat & Kartonët):** Të dhëna të detajuara që lidhin Lojtarin me Ndeshjen specifike.
+* **TRANSFERIMET:** Monitorimi i financave dhe lëvizjeve mes dy klubeve.
 
 
-Relacionet Komplekse: Përdorimi i lidhjeve One-to-Many dhe Many-to-Many për të lidhur klubet që përballen në një ndeshje (Home vs Away).
+### Entitetet dhe Atributet:
+1.  **Klubet:** `id_klubi` (PK), Emri, Qyteti, Viti i Themelimit.
+2.  **Lojtarët:** `id_lojtari` (PK), Emri, Pozicioni, Numri i fanellës.
+3.  **Trajnerët:** Lidhja me Klubin përmes `id_klubi` (FK).
+4.  **Stadiumet:** Kapaciteti dhe Qyteti ku pret (host) ndeshjet.
+5.  **Referët:** Grada (FIFA/Kombëtare) dhe historiku i ndeshjeve.
 
-🧪 Teknologjitë e Përdorura
-PostgreSQL (Sistemi i menaxhimit të bazës së të dhënave)
+---
 
-SQL (DDL, DML, Query funksionale)
+## 🧪 Teknologjitë e Përdorura
+* **SGBD:** PostgreSQL (Sistemi i menaxhimit të bazës së të dhënave).
+* **Gjuha:** SQL (DDL për strukturën, DML për të dhënat).
+* **Metodologjia:** Database Normalization (1NF, 2NF, 3NF) për eliminimin e redundancës.
 
-Database Design (Normalizimi i të dhënave dhe relacionet)
+---
 
-👨‍💻 Autori
-Enis Hetemi Fakulteti i Shkencave Kompjuterike
-
-Projekti: Superliga Database
+## 🔍 Queries & Skenarët e Përdorimit
+* **Gjurmimi i Golashënuesve:** Përdorimi i `COUNT` dhe `GROUP BY` për të gjeneruar listën e realizatorëve.
+* **Relacionet Home/Away:** Identifikimi i klubeve që përballen në çdo java të kampionatit.
+* **Raporti i Kartonëve:** Analiza e disiplinës së lojtarëve sipas ndeshjeve dhe referëve.
+* **Bilanci i Transferimeve:** Kalkulimi i vlerës totale të blerjeve dhe shitjeve për një sezon.
