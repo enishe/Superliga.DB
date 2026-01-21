@@ -16,41 +16,59 @@ Superliga Database (SDB) është një sistem i menaxhimit të bazës së të dh�
 ---
 
 ## 🚀 Karakteristikat Kryesore (Features)
-* **Menaxhimi i Statistikave:** Regjistrimi i saktë i çdo ndeshjeje, goli dhe kartoni për të shmangur vështirësitë në gjurmimin historik.
-* **Gjurmimi i Transferimeve:** Regjistrimi i plotë i lëvizjeve të lojtarëve (shitës/blerës) përfshirë datën dhe vlerën e transferimit.
-* **Integriteti i të Dhënave:** Zbatimi i "Foreign Keys" që sigurojnë që çdo ngjarje (gol ose karton) të jetë e lidhur saktë me ndeshjen dhe lojtarin.
-* **Analitika Operative:** Gjenerimi i listave për "Këpucën e Artë" dhe renditjen e skuadrave përmes Queries komplekse.
-* **Historiku i Stadiumit:** Menaxhimi i kapaciteteve dhe qyteteve ku zhvillohen aktivitetet sportive.
+* **Integriteti i Plotë:** Zbatimi i "Primary Keys" dhe "Foreign Keys" për të siguruar saktësinë e të dhënave.
+* **Gjurmimi i Statistikave:** Regjistrimi i çdo goli, kartoni dhe rezultati në kohë reale për çdo ndeshje.
+* **Menaxhimi i Transferimeve:** Monitorimi i lëvizjeve financiare dhe lojtarëve midis klubeve.
+* **Organizimi i Stadiumeve:** Koordinimi i ndeshjeve bazuar në kapacitetin dhe vendndodhjen e stadiumeve.
+* **Hierarkia e Sezoneve:** Mundësia për të arkivuar sezonet e kaluara dhe për të menaxhuar sezonin aktiv.
 
 ---
 
-## 📊 Struktura e Databazës (Sipas ER Diagramit)
-Databaza është e normalizuar dhe përbëhet nga 10 entitete kryesore:
-
-* **KLUBET & LOJTARËT:** Lidhja One-to-Many (Klubi ka shumë lojtarë).
-* **NDESHJET:** Pika qendrore ku lidhen Stadiumet, Sezonet dhe Referët.
-* **NGJARJET (Golat & Kartonët):** Të dhëna të detajuara që lidhin Lojtarin me Ndeshjen specifike.
-* **TRANSFERIMET:** Monitorimi i financave dhe lëvizjeve mes dy klubeve.
+## 📊 Struktura e Tabelave (Sipas ER Diagramit)
+Baza e të dhënave përbëhet nga 10 tabela të normalizuara që mbulojnë çdo aspekt të kampionatit:
 
 
-### Entitetet dhe Atributet:
-1.  **Klubet:** `id_klubi` (PK), Emri, Qyteti, Viti i Themelimit.
-2.  **Lojtarët:** `id_lojtari` (PK), Emri, Pozicioni, Numri i fanellës.
-3.  **Trajnerët:** Lidhja me Klubin përmes `id_klubi` (FK).
-4.  **Stadiumet:** Kapaciteti dhe Qyteti ku pret (host) ndeshjet.
-5.  **Referët:** Grada (FIFA/Kombëtare) dhe historiku i ndeshjeve.
+
+### 1. KLUBET
+* `id_klubi` (PK), `emri`, `qyteti`, `viti_themelimit`, `presidenti`.
+### 2. LOJTARËT
+* `id_lojtari` (PK), `emri`, `mbiemri`, `data_lindjes`, `pozicioni`, `numri_fanelles`, `id_klubi` (FK).
+### 3. TRAJNERËT
+* `id_trajneri` (PK), `emri`, `kualifikimi`, `id_klubi` (FK).
+### 4. NDESHJET
+* `id_ndeshjes` (PK), `data`, `ora`, `java`, `rezultati_final`, `id_stadiumi` (FK), `id_sezonit` (FK), `id_referi` (FK).
+### 5. GOLAT
+* `id_golit` (PK), `minuta`, `lloji`, `id_ndeshjes` (FK), `id_lojtari` (FK).
+### 6. KARTONËT
+* `id_kartonit` (PK), `ngjyra`, `minuta`, `arsyeja`, `id_ndeshjes` (FK), `id_lojtari` (FK).
+### 7. STADIUMET
+* `id_stadiumi` (PK), `emri`, `kapaciteti`, `qyteti`.
+### 8. REFERËT
+* `id_referi` (PK), `emri`, `mbiemri`, `grada`.
+### 9. SEZONET
+* `id_sezonit` (PK), `viti`, `statusi`.
+### 10. TRANSFERIMET
+* `id_transferimit` (PK), `data`, `vlera`, `id_lojtari` (FK), `id_klubi_shites` (FK), `id_klubi_bleres` (FK).
+
+---
+
+## 🔗 Relacionet dhe Logjika
+* **Lidhja Klub-Lojtar:** Relacion **One-to-Many** ku një klub grumbullon shumë lojtarë.
+* **Sistemi i Ndeshjeve:** Tabela `NDESHJET` shërben si nyje kryesore që lidh `REFERET`, `STADIUMET` dhe `SEZONET`.
+* **Gjurmimi i Ngjarjeve:** Golat dhe kartonët lidhen direkt me lojtarin që i ka shënuar/marrë dhe me ndeshjen ku kanë ndodhur.
+* **Transferimet Komplekse:** Lejon gjurmimin e parave dhe lëvizjeve mes tre entiteteve (Lojtari, Klubi A dhe Klubi B).
 
 ---
 
 ## 🧪 Teknologjitë e Përdorura
-* **SGBD:** PostgreSQL (Sistemi i menaxhimit të bazës së të dhënave).
-* **Gjuha:** SQL (DDL për strukturën, DML për të dhënat).
-* **Metodologjia:** Database Normalization (1NF, 2NF, 3NF) për eliminimin e redundancës.
+* **SGBD:** PostgreSQL.
+* **Modelimi:** ER Diagramming (Entity-Relationship).
+* **Gjuha:** SQL (Structured Query Language).
+* **Parimet:** Database Normalization (3NF) dhe Data Integrity.
 
 ---
 
-## 🔍 Queries & Skenarët e Përdorimit
-* **Gjurmimi i Golashënuesve:** Përdorimi i `COUNT` dhe `GROUP BY` për të gjeneruar listën e realizatorëve.
-* **Relacionet Home/Away:** Identifikimi i klubeve që përballen në çdo java të kampionatit.
-* **Raporti i Kartonëve:** Analiza e disiplinës së lojtarëve sipas ndeshjeve dhe referëve.
-* **Bilanci i Transferimeve:** Kalkulimi i vlerës totale të blerjeve dhe shitjeve për një sezon.
+## 🔍 Queries & Use Cases
+* **Këpuca e Artë:** Filtra për të gjetur golashënuesit më të mirë sipas sezoneve.
+* **Analiza e Stadiumeve:** Raporte mbi ndeshjet e luajtura në çdo qytet.
+* **Historiku i Transferimeve:** Shuma totale e shpenzuar nga një klub i caktuar gjatë një viti.
